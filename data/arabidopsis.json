@@ -1,0 +1,536 @@
+{
+  "id": "ara",
+  "name": "Arabidopsis thaliana",
+  "commonName": "A. thaliana",
+  "abbr": "At",
+  "color": "#5AAA2E",
+  "tagline": "Thale cress \u00b7 model angiosperm \u00b7 ~135 Mb genome",
+  "model": {
+    "type": "plant",
+    "lengthUnits": 1.0
+  },
+  "hotspots3d": [
+    {
+      "id": "flower",
+      "label": "F",
+      "color": "#7F77DD",
+      "pos": [
+        0,
+        1.65,
+        0
+      ],
+      "name": "Flower",
+      "sub": "Reproductive apex",
+      "data": {
+        "organs": "Sepal, petal, stamen, carpel",
+        "flowers_per_plant": "~200-500",
+        "seeds_per_fruit": "~20-40",
+        "function": "Sexual reproduction via pollination & seed production"
+      }
+    },
+    {
+      "id": "silique",
+      "label": "S",
+      "color": "#BA7517",
+      "pos": [
+        0.25,
+        1.1,
+        0
+      ],
+      "name": "Silique",
+      "sub": "Fruit & seeds",
+      "data": {
+        "length": "3-4 cm",
+        "seeds": "~20-40 per silique",
+        "wall_cells": "~1000",
+        "function": "Seed protection & dispersal"
+      }
+    },
+    {
+      "id": "meristem",
+      "label": "M",
+      "color": "#378ADD",
+      "pos": [
+        0,
+        0.55,
+        0
+      ],
+      "name": "Shoot apical meristem",
+      "sub": "Stem cell niche",
+      "data": {
+        "stem_cells": "~1000 initials",
+        "cell_division_rate": "1 division/12 hrs",
+        "organogenesis": "Leaf every ~2 days",
+        "function": "Continuous above-ground growth via stem cells"
+      }
+    },
+    {
+      "id": "leaf",
+      "label": "L",
+      "color": "#1D9E75",
+      "pos": [
+        -0.85,
+        0.15,
+        0
+      ],
+      "name": "Rosette leaf",
+      "sub": "Photosynthetic organ",
+      "data": {
+        "cells": "~10,000 cells",
+        "chloroplasts": "~100 per cell",
+        "area": "~50-100 mm\u00b2",
+        "function": "Photosynthesis & carbon fixation"
+      }
+    },
+    {
+      "id": "root",
+      "label": "R",
+      "color": "#D85A30",
+      "pos": [
+        0,
+        -1.1,
+        0
+      ],
+      "name": "Root system",
+      "sub": "Uptake & anchoring",
+      "data": {
+        "primary_root": "2-3 cm",
+        "lateral_roots": "1000s",
+        "root_hairs": "1000s per cm",
+        "function": "Water/nutrient uptake & soil anchoring"
+      }
+    }
+  ],
+  "data": {
+    "flower": {
+      "anatomy": {
+        "desc": "Perfect flower: 4 sepals, 4 petals, 6 stamens, bicarpellate gynoecium. Self-compatible.",
+        "tags": [
+          "4 petals",
+          "6 stamens",
+          "self-compatible"
+        ]
+      },
+      "genetics": {
+        "desc": "ABC model: AP1/AP2, AP3/PI, AG. FLC/FRI vernalisation control.",
+        "tags": [
+          "AP1",
+          "AP3",
+          "AGAMOUS",
+          "FLC"
+        ]
+      },
+      "experiment": {
+        "desc": "Floral dip transformation via Agrobacterium. EMS mutagenesis screens.",
+        "tags": [
+          "floral dip",
+          "Agrobacterium",
+          "EMS"
+        ]
+      }
+    },
+    "silique": {
+      "anatomy": {
+        "desc": "~15 mm dry fruit; 20\u201340 seeds. Dehiscence along replum. Nuclear endosperm.",
+        "tags": [
+          "~20 seeds",
+          "dehiscent",
+          "replum"
+        ]
+      },
+      "genetics": {
+        "desc": "SHP1/SHP2 lignify valve. IND/ALC co-regulate dehiscence. FUL represses SHP.",
+        "tags": [
+          "SHP1",
+          "SHP2",
+          "IND",
+          "FUL"
+        ]
+      },
+      "experiment": {
+        "desc": "Staged 0\u201318 days post-anthesis. In situ hybridisation to embryo.",
+        "tags": [
+          "staging",
+          "in situ",
+          "GUS"
+        ]
+      }
+    },
+    "meristem": {
+      "anatomy": {
+        "desc": "Dome ~100 \u00b5m. Central zone (stem cells) \u2192 peripheral zone \u2192 rib zone.",
+        "tags": [
+          "CZ",
+          "PZ",
+          "rib zone"
+        ]
+      },
+      "genetics": {
+        "desc": "WUS/CLV3 feedback sizes meristem. STM maintains pluripotency.",
+        "tags": [
+          "WUS",
+          "CLV3",
+          "STM",
+          "cytokinin"
+        ]
+      },
+      "experiment": {
+        "desc": "Live pWUS:GFP confocal. Laser ablation of OC. CRISPR CLV3 series.",
+        "tags": [
+          "live imaging",
+          "laser ablation",
+          "CRISPR"
+        ]
+      }
+    },
+    "leaf": {
+      "anatomy": {
+        "desc": "Ovate, serrated. Bifacial: palisade (adaxial) + spongy (abaxial). ~150 stomata/mm\u00b2.",
+        "tags": [
+          "bifacial",
+          "palisade",
+          "stomata"
+        ]
+      },
+      "genetics": {
+        "desc": "PHYB shade-avoidance. CRY1/CRY2 blue light. SPEECHLESS stomatal lineage.",
+        "tags": [
+          "PHYB",
+          "CRY1",
+          "SPEECHLESS"
+        ]
+      },
+      "experiment": {
+        "desc": "Fv/Fm PSII efficiency. Stomatal aperture assays. ChIP-seq.",
+        "tags": [
+          "Fv/Fm",
+          "ChIP-seq",
+          "stomatal assay"
+        ]
+      }
+    },
+    "root": {
+      "anatomy": {
+        "desc": "Transparent; epidermis\u2192cortex\u2192endodermis\u2192pericycle\u2192vasculature. QC protects stem cells.",
+        "tags": [
+          "QC",
+          "endodermis",
+          "pericycle"
+        ]
+      },
+      "genetics": {
+        "desc": "SCR/SHR specify endodermis. PLT gradient marks stem cells. ARF7/ARF19 lateral roots.",
+        "tags": [
+          "SCR",
+          "SHR",
+          "PLT2",
+          "ARF7"
+        ]
+      },
+      "experiment": {
+        "desc": "Gravity tropism on vertical agar. DR5:GFP auxin maxima. FACS cell-type transcriptomics.",
+        "tags": [
+          "gravotropism",
+          "DR5:GFP",
+          "FACS"
+        ]
+      }
+    }
+  },
+  "imagery": [
+    {
+      "id": "root-dic",
+      "label": "Root DIC",
+      "type": "brightfield",
+      "modality": "DIC",
+      "mag": "40\u00d7",
+      "desc": "Differential Interference Contrast imaging of Arabidopsis root showing cell zones: root cap, meristematic, elongation, maturation zones with root hairs.",
+      "image": "procedural:dic",
+      "video": null,
+      "regions": [
+        {
+          "x": 0.5,
+          "y": 0.15,
+          "label": "Root cap",
+          "color": "#8B4513",
+          "rx": 0.06,
+          "ry": 0.05,
+          "rot": 0
+        },
+        {
+          "x": 0.5,
+          "y": 0.3,
+          "label": "Meristem",
+          "color": "#DAA520",
+          "rx": 0.055,
+          "ry": 0.045,
+          "rot": 0
+        },
+        {
+          "x": 0.5,
+          "y": 0.5,
+          "label": "Elongation",
+          "color": "#CD853F",
+          "rx": 0.06,
+          "ry": 0.06,
+          "rot": 0
+        },
+        {
+          "x": 0.5,
+          "y": 0.7,
+          "label": "Maturation",
+          "color": "#A0826D",
+          "rx": 0.07,
+          "ry": 0.06,
+          "rot": 0
+        },
+        {
+          "x": 0.5,
+          "y": 0.85,
+          "label": "Vascular",
+          "color": "#3A2A1A",
+          "rx": 0.03,
+          "ry": 0.12,
+          "rot": 0
+        }
+      ]
+    },
+    {
+      "id": "root-gfp",
+      "label": "Root GFP",
+      "type": "fluorescence",
+      "modality": "GFP",
+      "mag": "63\u00d7",
+      "desc": "Green Fluorescent Protein (GFP) expression in root epidermis. Bright green fluorescent puncta indicate GFP-tagged protein localization.",
+      "image": "procedural:gfp",
+      "video": null,
+      "regions": [
+        {
+          "x": 0.5,
+          "y": 0.35,
+          "label": "GFP signal",
+          "color": "#64ff96",
+          "rx": 0.06,
+          "ry": 0.08,
+          "rot": 0
+        },
+        {
+          "x": 0.5,
+          "y": 0.65,
+          "label": "Root cells",
+          "color": "#40cc66",
+          "rx": 0.08,
+          "ry": 0.1,
+          "rot": 0
+        }
+      ]
+    },
+    {
+      "id": "root-bodipy",
+      "label": "Root BODIPY",
+      "type": "fluorescence",
+      "modality": "BODIPY",
+      "mag": "63\u00d7",
+      "desc": "BODIPY lipid staining shows bright yellow lipid droplets concentrated in root cap cells. Blue nuclei indicate DAPI nuclear stain.",
+      "image": "procedural:bodipy",
+      "video": null,
+      "regions": [
+        {
+          "x": 0.5,
+          "y": 0.15,
+          "label": "Lipid droplets",
+          "color": "#FFFF00",
+          "rx": 0.12,
+          "ry": 0.08,
+          "rot": 0
+        },
+        {
+          "x": 0.5,
+          "y": 0.5,
+          "label": "Nuclei",
+          "color": "#78b4ff",
+          "rx": 0.05,
+          "ry": 0.05,
+          "rot": 0
+        }
+      ]
+    },
+    {
+      "id": "root-em",
+      "label": "Root EM",
+      "type": "electron microscopy",
+      "modality": "EM",
+      "mag": "5000\u00d7",
+      "desc": "Transmission Electron Microscopy of root cell showing bright cell walls, dark central vacuole, and scattered mitochondria - cellular ultrastructure.",
+      "image": "procedural:em",
+      "video": null,
+      "regions": [
+        {
+          "x": 0.5,
+          "y": 0.25,
+          "label": "Cell wall",
+          "color": "#e0e0e0",
+          "rx": 0.08,
+          "ry": 0.08,
+          "rot": 0
+        },
+        {
+          "x": 0.5,
+          "y": 0.5,
+          "label": "Vacuole",
+          "color": "#404040",
+          "rx": 0.06,
+          "ry": 0.07,
+          "rot": 0
+        },
+        {
+          "x": 0.5,
+          "y": 0.7,
+          "label": "Mitochondria",
+          "color": "#999999",
+          "rx": 0.04,
+          "ry": 0.035,
+          "rot": 0
+        }
+      ]
+    }
+  ],
+  "lifecycle": [
+    {
+      "id": "seed",
+      "name": "Seed Germination",
+      "desc": "Seed absorbs water. Radicle emerges. Primary root forms and grows downward.",
+      "duration": "0-5 days",
+      "tags": [
+        "Germination",
+        "Root growth"
+      ],
+      "color": "#7F77DD"
+    },
+    {
+      "id": "seedling",
+      "name": "Seedling Stage",
+      "desc": "Cotyledons emerge above soil. First true leaves appear. Root system expands with lateral roots.",
+      "duration": "1-2 weeks",
+      "tags": [
+        "Emergence"
+      ],
+      "color": "#378ADD"
+    },
+    {
+      "id": "rosette",
+      "name": "Vegetative Growth",
+      "desc": "Rosette of leaves forms. ~20-40 leaves produced. Root hairs increase nutrient uptake. No flowering yet.",
+      "duration": "2-6 weeks",
+      "tags": [
+        "Growth"
+      ],
+      "color": "#1D9E75"
+    },
+    {
+      "id": "bolt",
+      "name": "Bolting",
+      "desc": "Inflorescence meristem activated. Stem elongates rapidly. Flowering begins at top.",
+      "duration": "6-8 weeks",
+      "tags": [
+        "Transition to flowering"
+      ],
+      "color": "#BA7517"
+    },
+    {
+      "id": "flower",
+      "name": "Flowering",
+      "desc": "~200-500 flowers produced. Self-fertilization occurs. Siliques begin to form.",
+      "duration": "8-10 weeks",
+      "tags": [
+        "Pollination",
+        "Fertilization"
+      ],
+      "color": "#D85A30"
+    },
+    {
+      "id": "seed_mature",
+      "name": "Seed Maturation",
+      "desc": "Seeds mature in siliques. Plant produces 5000-10000 seeds. Senescence begins.",
+      "duration": "10-12 weeks",
+      "tags": [
+        "Seed production"
+      ],
+      "color": "#8B4513"
+    }
+  ],
+  "workflows": [
+    {
+      "id": "growth",
+      "name": "Root Growth Assay",
+      "desc": "Measure primary root elongation under stress conditions",
+      "color": "#1D9E75",
+      "steps": [
+        {
+          "id": "s1",
+          "title": "Seed Sterilization",
+          "desc": "Surface sterilize seeds with 50% bleach + 70% ethanol",
+          "duration": "10 min",
+          "viz": "sterilize"
+        },
+        {
+          "id": "s2",
+          "title": "Plate Preparation",
+          "desc": "Prepare vertical MS agar plates with test compounds (salt/hormone)",
+          "duration": "30 min",
+          "viz": "plate"
+        },
+        {
+          "id": "s3",
+          "title": "Seedling Growth",
+          "desc": "Grow seeds vertically in growth chamber (22\u00b0C, 16hr light) for 7 days",
+          "duration": "7 days",
+          "viz": "growth"
+        },
+        {
+          "id": "s4",
+          "title": "Root Measurement",
+          "desc": "Measure primary root length and count lateral roots",
+          "duration": "2 hrs",
+          "viz": "measure"
+        }
+      ]
+    },
+    {
+      "id": "flower",
+      "name": "Floral Development",
+      "desc": "Monitor flower and fruit development stages",
+      "color": "#BA7517",
+      "steps": [
+        {
+          "id": "s1",
+          "title": "Bolt Detection",
+          "desc": "Observe transition from vegetative to reproductive (bolting stage)",
+          "duration": "2-3 weeks",
+          "viz": "bolt"
+        },
+        {
+          "id": "s2",
+          "title": "Flower Staging",
+          "desc": "Classify flowers by stage under stereomicroscope (stage 1-15)",
+          "duration": "1 week",
+          "viz": "flower"
+        },
+        {
+          "id": "s3",
+          "title": "Silique Harvest",
+          "desc": "Collect mature siliques at brown stage, air-dry",
+          "duration": "1 week",
+          "viz": "harvest"
+        },
+        {
+          "id": "s4",
+          "title": "Seed Analysis",
+          "desc": "Count and measure seeds per silique",
+          "duration": "2 hrs",
+          "viz": "seeds"
+        }
+      ]
+    }
+  ]
+}

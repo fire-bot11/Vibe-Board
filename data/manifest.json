@@ -1,0 +1,6 @@
+{
+  "organisms": [
+    { "id": "cel", "file": "data/c_elegans.json" },
+    { "id": "ara", "file": "data/arabidopsis.json" }
+  ]
+}

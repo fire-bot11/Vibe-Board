@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Model Organism Explorer — VIBE Board Edition</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="app">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="logo-badge">🧬</div>
+      <div>
+        <div class="topbar-title">Model Organism Explorer</div>
+        <div class="topbar-sub" id="topbar-sub">Loading organism data… · v44</div>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="pill-btn" id="kiosk-btn" onclick="toggleKioskMode()">🔒 Kiosk mode</div>
+      <div class="pill-btn" onclick="document.getElementById('modal-add').classList.add('show')">➕ Add organism</div>
+      <div class="fullscreen-btn" onclick="toggleFullscreen()" title="Toggle full screen" id="fs-btn">⛶</div>
+    </div>
+  </div>
+
+  <!-- ORG TABS -->
+  <div class="org-tabs" id="org-tabs"></div>
+
+  <!-- VIEW BAR -->
+  <div class="view-bar">
+    <div class="view-btn active" id="vbtn-3d" onclick="setView('3d')"><span class="view-icon">🧫</span> 3D Anatomy</div>
+    <div class="view-btn" id="vbtn-imagery" onclick="setView('imagery')"><span class="view-icon">🔬</span> Microscopy &amp; Imagery</div>
+    <div class="view-btn" id="vbtn-lifecycle" onclick="setView('lifecycle')"><span class="view-icon">🔄</span> Life Cycle</div>
+    <div class="view-btn" id="vbtn-workflow" onclick="setView('workflow')"><span class="view-icon">🧪</span> Experimental Workflows</div>
+    <div class="view-btn" id="vbtn-deepzoom" onclick="setView('deepzoom')"><span class="view-icon">🌀</span> Deep Zoom</div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main-area">
+
+    <!-- 3D VIEW (WebGL) -->
+    <div id="view-3d" style="flex:1;display:flex;min-height:0">
+      <div class="canvas-wrap" id="canvas-wrap">
+        <canvas id="gl-canvas"></canvas>
+        <div class="load-badge" id="load-badge">Initializing 3D model…</div>
+        <div class="ctrl-overlay">
+          <div class="ctrl-btn" onclick="resetView()" title="Reset view">⟲</div>
+          <div class="ctrl-btn" onclick="zoom3d(0.85)" title="Zoom in">＋</div>
+          <div class="ctrl-btn" onclick="zoom3d(1.18)" title="Zoom out">－</div>
+          <div class="ctrl-btn" id="auto-btn" onclick="toggleAuto()" title="Auto-rotate">↻</div>
+          <div class="ctrl-btn" id="wire-btn" onclick="toggleWire()" title="Toggle shading">◐</div>
+        </div>
+        <div class="mode-bar">
+          <div class="mode-chip active" id="chip-anatomy" onclick="setMode('anatomy')">👁 Anatomy</div>
+          <div class="mode-chip" id="chip-genetics" onclick="setMode('genetics')">🧬 Genetics</div>
+          <div class="mode-chip" id="chip-experiment" onclick="setMode('experiment')">🧪 Experiments</div>
+        </div>
+        <div class="mutant-toggle" id="mutant-toggle" onclick="toggleMutantView()" title="Compare against a real, well-known mutant phenotype">
+          <div class="mutant-toggle-switch" id="mutant-toggle-switch"><div class="mutant-toggle-knob"></div></div>
+          <div class="mutant-toggle-text">
+            <div class="mutant-toggle-label" id="mutant-toggle-label">Wild-type</div>
+            <div class="mutant-toggle-sub" id="mutant-toggle-sub">Tap to see a mutant</div>
+          </div>
+        </div>
+        <div class="drag-hint" id="drag-hint">Drag to orbit · Scroll or pinch to zoom · Right-drag or two fingers to move</div>
+        <div id="hotspot-layer" style="position:absolute;inset:0;pointer-events:none"></div>
+      </div>
+      <div class="sidebar" id="sidebar-3d">
+        <div class="sid-head"><div class="sid-title" id="sid-title-3d">Select a structure</div><div class="sid-sub" id="sid-sub-3d">Tap a hotspot on the model</div></div>
+        <div class="mutant-info-banner" id="mutant-info-banner" style="display:none"></div>
+        <div class="sid-body" id="sid-body-3d"><div class="sid-empty"><div class="big-icon">👆</div>Tap any labeled point on the 3D model to reveal anatomy, genetics, or experimental details.</div></div>
+      </div>
+    </div>
+
+    <!-- IMAGERY VIEW -->
+    <div id="view-imagery" style="flex:1;display:none;min-height:0">
+      <div class="img-panel">
+        <div class="img-viewer" id="img-viewer">
+          <canvas id="img-main-canvas" class="img-canvas"></canvas>
+          <canvas id="img-highlight-canvas" class="img-canvas" style="position:absolute;top:0;left:0;pointer-events:none"></canvas>
+          <div id="img-hotspot-layer" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:auto;z-index:15"></div>
+          <div class="img-loading" id="img-loading"><div class="spinner"></div></div>
+          <div class="img-controls">
+            <div class="ctrl-btn" onclick="imgZoom(1.4)" title="Zoom in">＋</div>
+            <div class="ctrl-btn" onclick="imgZoom(0.72)" title="Zoom out">－</div>
+            <div class="ctrl-btn" onclick="imgReset()" title="Reset">⟲</div>
+          </div>
+          <div class="img-zoom-badge" id="img-zoom-badge">100%</div>
+        </div>
+        <div class="img-thumb-strip" id="img-thumb-strip"></div>
+      </div>
+      <div class="sidebar">
+        <div class="sid-head"><div class="sid-title" id="sid-title-img">Select image</div><div class="sid-sub" id="sid-sub-img">Click a region hotspot</div></div>
+        <div class="sid-body" id="sid-body-img"><div class="sid-empty"><div class="big-icon">🔬</div>Click a highlighted region for details, and check for related video content.</div></div>
+      </div>
+
+      <!-- DATA PANEL (Feature #3) -->
+      <div class="data-panel" id="data-panel" style="display:none">
+        <div class="data-panel-head">
+          <div class="data-panel-title" id="data-panel-title">Structure Data</div>
+          <button class="data-panel-close" onclick="closeDataPanel()">✕</button>
+        </div>
+        <div class="data-panel-body" id="data-panel-body"></div>
+      </div>
+    </div>
+
+    <!-- LIFE CYCLE VIEW -->
+    <div id="view-lifecycle" style="flex:1;display:none;min-height:0">
+      <div style="flex:1;display:flex;flex-direction:column;min-height:0">
+        <div class="lc-subnav">
+          <div class="lc-subnav-btn active" id="lc-subnav-timelapse" onclick="lcSetSubView('timelapse')"><span>🎬</span> Time-Lapse</div>
+          <div class="lc-subnav-btn" id="lc-subnav-original" onclick="lcSetSubView('original')"><span>📋</span> Stage List</div>
+        </div>
+        <div class="tl-panel" id="tl-panel">
+          <div class="tl-canvas-wrap" id="tl-canvas-wrap">
+            <canvas id="tl-canvas"></canvas>
+            <div class="tl-load-badge" id="tl-load-badge" style="display:none">Loading time-lapse…</div>
+            <div class="tl-stage-badge" id="tl-stage-badge">Seed</div>
+          </div>
+          <div class="tl-caption" id="tl-caption"></div>
+          <div class="tl-controls">
+            <div class="tl-step-btn" id="tl-prev-btn" onclick="tlStepStage(-1)" title="Previous stage">⏮</div>
+            <div class="tl-play-btn" id="tl-play-btn" onclick="tlTogglePlay()">▶</div>
+            <div class="tl-step-btn" id="tl-next-btn" onclick="tlStepStage(1)" title="Next stage">⏭</div>
+            <div class="tl-track" id="tl-track">
+              <div class="tl-track-segments" id="tl-track-segments"></div>
+              <div class="tl-playhead" id="tl-playhead"></div>
+            </div>
+            <div class="tl-pause-toggle active" id="tl-pause-toggle" onclick="tlTogglePauseMode()" title="Pause automatically at each stage">⏸ Pause each stage</div>
+            <div class="tl-speed" id="tl-speed" onclick="tlCycleSpeed()">1×</div>
+          </div>
+        </div>
+        <div class="lifecycle-panel" id="lifecycle-panel" style="display:none"></div>
+      </div>
+      <div class="sidebar">
+        <div class="sid-head"><div class="sid-title" id="sid-title-lc">Life cycle</div><div class="sid-sub" id="sid-sub-lc">Click a stage</div></div>
+        <div class="sid-body" id="sid-body-lc"><div class="sid-empty"><div class="big-icon">🔄</div>Select a life cycle stage to explore developmental details, or press play above to watch it happen.</div></div>
+      </div>
+    </div>
+
+    <!-- WORKFLOW VIEW -->
+    <div id="view-workflow" style="flex:1;display:none;min-height:0">
+      <div class="wf-selector" id="wf-selector"></div>
+      <div class="workflow-panel" id="workflow-panel"></div>
+      <div class="sidebar">
+        <div class="sid-head"><div class="sid-title" id="sid-title-wf">Workflow</div><div class="sid-sub" id="sid-sub-wf">Select a step</div></div>
+        <div class="sid-body" id="sid-body-wf"><div class="sid-empty"><div class="big-icon">🧪</div>Select a workflow step for full protocol details.</div></div>
+      </div>
+    </div>
+
+    <!-- DEEP ZOOM VIEW (3D continuous LOD: organism -> tissue -> cell -> organelle -> nucleus -> chromosome -> DNA) -->
+    <div id="view-deepzoom" style="flex:1;display:none;min-height:0">
+      <div class="canvas-wrap" id="dz-canvas-wrap">
+        <canvas id="dz-canvas"></canvas>
+        <div class="load-badge" id="dz-load-badge" style="display:none">Loading deep zoom…</div>
+        <div class="ctrl-overlay">
+          <div class="ctrl-btn" onclick="dzResetView()" title="Reset">⟲</div>
+          <div class="ctrl-btn" onclick="dzZoomStep(3)" title="Zoom in">＋</div>
+          <div class="ctrl-btn" onclick="dzZoomStep(-3)" title="Zoom out">－</div>
+          <div class="ctrl-btn" id="dz-wire-btn" onclick="dzToggleWire()" title="Toggle transparent/wireframe (see internal structures)">◐</div>
+        </div>
+        <div class="img-zoom-badge" id="dz-tier-badge" style="bottom:auto;top:18px;left:50%;transform:translateX(-50%)">🧫 Organism · 1.0×</div>
+        <div class="dz-tier-strip" id="dz-tier-strip"></div>
+        <div class="drag-hint">Drag to orbit · Scroll, pinch, or ＋ / － to dive deeper</div>
+        <div id="dz-hotspot-layer" style="position:absolute;inset:0;pointer-events:none"></div>
+      </div>
+      <div class="sidebar">
+        <div class="sid-head"><div class="sid-title" id="sid-title-dz">Select a structure</div><div class="sid-sub" id="sid-sub-dz">Zoom in, then tap a hotspot</div></div>
+        <div class="dz-parts-list" id="dz-parts-list"></div>
+        <div class="sid-body" id="sid-body-dz"><div class="sid-empty"><div class="big-icon">🌀</div>Scroll, pinch, or use the ＋/－ buttons to dive continuously from the whole organism down to a single DNA double helix. Tap any labeled point along the way, or pick a part from the list above.</div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ADD ORGANISM MODAL -->
+<div class="modal-bg" id="modal-add">
+  <div class="modal">
+    <h3>➕ Add organism</h3>
+    <p style="font-size:12.5px;color:var(--text-2);line-height:1.6;margin-bottom:4px">
+      New organisms are added as JSON files in <code>/data</code> and registered in <code>manifest.json</code> — no code changes required.
+      This quick-add creates a placeholder entry for the current session.
+    </p>
+    <label>Scientific name</label><input id="add-name" placeholder="e.g. Drosophila melanogaster">
+    <label>Abbreviation (2–3 letters)</label><input id="add-abbr" maxlength="3" placeholder="e.g. Dm">
+    <label>Brief description</label><textarea id="add-desc" placeholder="Fruit fly; key model for developmental genetics"></textarea>
+    <div class="modal-btns">
+      <button onclick="document.getElementById('modal-add').classList.remove('show')">Cancel</button>
+      <button class="primary" onclick="addOrganism()">Add organism</button>
+    </div>
+  </div>
+</div>
+
+<!-- EXPLORE DEEPER / MEDIA PANEL -->
+<div class="explore-panel" id="explore-panel">
+  <div class="explore-card" style="position:relative">
+    <div class="close-x" onclick="document.getElementById('explore-panel').classList.remove('show')">✕</div>
+    <h3 id="explore-title">📘 Details</h3>
+    <div id="explore-video-wrap" style="display:none;margin-bottom:16px;border-radius:10px;overflow:hidden;aspect-ratio:16/9;background:#000">
+      <iframe id="explore-video" style="width:100%;height:100%;border:0" allowfullscreen></iframe>
+    </div>
+    <div class="body-text" id="explore-body"></div>
+  </div>
+</div>
+
+<!-- INTRO SCREEN (splash/welcome) -->
+<div id="intro-screen" style="position:fixed;top:0;left:0;right:0;bottom:0;background:linear-gradient(135deg, #0a0e15 0%, #1a1f2e 50%, #0f1419 100%);z-index:9999;display:flex;align-items:center;justify-content:center;font-family:sans-serif;color:#fff">
+  <div style="max-width:700px;text-align:center;padding:40px;animation:fadeIn 0.8s ease-out">
+    <div style="font-size:72px;margin-bottom:20px">🔬</div>
+    <h1 style="font-size:42px;margin:0 0 20px 0;font-weight:300;letter-spacing:2px">Model Organism Explorer</h1>
+    <p style="font-size:16px;color:#aaa;margin:0 0 40px 0;line-height:1.8">
+      An interactive journey through the cellular worlds of <strong>C. elegans</strong> and <strong>Arabidopsis thaliana</strong>.<br>
+      Explore anatomy in stunning 3D, examine living cells through the microscope, trace life cycles, and discover the experimental techniques that reveal nature's secrets.
+    </p>
+    
+    <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:30px;margin:30px 0;text-align:left">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;font-size:13px">
+        <div>
+          <div style="font-size:24px;margin-bottom:8px">🐛</div>
+          <strong>C. elegans</strong><br>
+          <span style="color:#999;font-size:12px">A 1mm transparent roundworm used in developmental biology, neuroscience, and genetics for over 50 years.</span>
+        </div>
+        <div>
+          <div style="font-size:24px;margin-bottom:8px">🌱</div>
+          <strong>Arabidopsis</strong><br>
+          <span style="color:#999;font-size:12px">The model plant for understanding growth, development, and how plants sense their environment.</span>
+        </div>
+      </div>
+    </div>
+    
+    <div style="color:#888;font-size:13px;margin-bottom:30px">
+      <strong>What you'll explore:</strong><br>
+      💠 3D anatomy with interactive hotspots &nbsp; • &nbsp; 🔬 Real microscopy techniques &nbsp; • &nbsp; 🔄 Life cycles &nbsp; • &nbsp; ⚗️ Lab protocols
+    </div>
+    
+    <button onclick="closeIntro()" style="background:linear-gradient(135deg, #4a9eff 0%, #2a7ed6 100%);color:#fff;border:none;padding:14px 48px;font-size:16px;border-radius:8px;cursor:pointer;font-weight:600;letter-spacing:1px;transition:all 0.3s;box-shadow:0 4px 20px rgba(74,158,255,0.3)">
+      Explore →
+    </button>
+  </div>
+</div>
+
+<style>
+  @keyframes fadeIn { from { opacity:0;transform:translateY(10px) } to { opacity:1;transform:translateY(0) } }
+  @keyframes slideOut { from { opacity:1;transform:translateY(0) } to { opacity:0;transform:translateY(-20px) } }
+  #intro-screen.hide { animation:slideOut 0.6s ease-out forwards;pointer-events:none }
+</style>
+
+<script>
+  function closeIntro(){
+    document.getElementById('intro-screen').classList.add('hide');
+    setTimeout(() => document.getElementById('intro-screen').style.display = 'none', 600);
+  }
+</script>
+<script src="three.min.js" onerror="loadThreeFromCDN()"></script>
+<script>
+function loadThreeFromCDN(){
+  if(typeof THREE !== 'undefined') return; // Already loaded
+  var s = document.createElement('script');
+  s.src = 'https://cdn.jsdelivr.net/npm/three@latest/build/three.min.js';
+  s.onerror = function(){
+    console.error('Three.js could not be loaded. 3D view will be unavailable.');
+  };
+  document.head.appendChild(s);
+}
+</script>
+<script src="organisms.js"></script>
+<script src="app.js"></script>
+<script src="deepzoom.js"></script>
+<script src="timelapse.js"></script>
+</body>
+</html>

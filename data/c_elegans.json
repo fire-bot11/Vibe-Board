@@ -1,0 +1,514 @@
+{
+  "id": "cel",
+  "name": "Caenorhabditis elegans",
+  "commonName": "C. elegans",
+  "abbr": "Ce",
+  "color": "#88B040",
+  "tagline": "Nematode \u00b7 302 neurons \u00b7 ~1 mm \u00b7 fully mapped connectome",
+  "model": {
+    "type": "worm",
+    "lengthUnits": 1.0
+  },
+  "hotspots3d": [
+    {
+      "id": "pharynx",
+      "label": "P",
+      "color": "#378ADD",
+      "pos": [
+        -1.55,
+        0.1,
+        0
+      ],
+      "name": "Pharynx",
+      "sub": "Feeding organ",
+      "data": {
+        "length": "75 \u03bcm",
+        "neurons": "30-40",
+        "muscles": "~6",
+        "function": "Grinding and suction feeding"
+      }
+    },
+    {
+      "id": "nerve",
+      "label": "N",
+      "color": "#7F77DD",
+      "pos": [
+        -1.2,
+        0.12,
+        0
+      ],
+      "name": "Nerve ring",
+      "sub": "302-neuron brain",
+      "data": {
+        "neurons": "302",
+        "synapses": "~7000",
+        "ganglia": "10 clusters",
+        "function": "Central processing & sensory integration"
+      }
+    },
+    {
+      "id": "gonad",
+      "label": "G",
+      "color": "#1D9E75",
+      "pos": [
+        -0.4,
+        0.3,
+        0
+      ],
+      "name": "Gonad arms",
+      "sub": "Germline stem cells",
+      "data": {
+        "oocytes": "~1000",
+        "arms": "2",
+        "length": "~2 mm",
+        "function": "Egg production & self-fertilization"
+      }
+    },
+    {
+      "id": "vulva",
+      "label": "V",
+      "color": "#BA7517",
+      "pos": [
+        0.3,
+        -0.05,
+        0
+      ],
+      "name": "Vulva",
+      "sub": "Egg-laying pore",
+      "data": {
+        "cells": "6",
+        "diameter": "~60 \u03bcm",
+        "muscles": "8 radial",
+        "function": "Egg expulsion via muscle contraction"
+      }
+    },
+    {
+      "id": "intestine",
+      "label": "I",
+      "color": "#D85A30",
+      "pos": [
+        0.95,
+        0.15,
+        0
+      ],
+      "name": "Intestine",
+      "sub": "Digestion & metabolism",
+      "data": {
+        "cells": "35",
+        "length": "~2 mm",
+        "lumen": "30-50 \u03bcm diameter",
+        "function": "Food digestion, nutrient absorption & storage"
+      }
+    }
+  ],
+  "data": {
+    "pharynx": {
+      "anatomy": {
+        "desc": "Bi-lobed muscular pump; grinds bacteria ~200\u00d7/min. Contains grinder (pm7) and two isthmus regions.",
+        "tags": [
+          "muscle",
+          "grinder",
+          "pump"
+        ]
+      },
+      "genetics": {
+        "desc": "pha-4/FOXA specifies pharynx fate. eat-4 fills glutamate vesicles. mec-7 mechanosensory neurons.",
+        "tags": [
+          "pha-4",
+          "eat-4",
+          "mec-7",
+          "FOXA"
+        ]
+      },
+      "experiment": {
+        "desc": "Pumping rate is a standard healthspan assay. Used in HTS drug screens.",
+        "tags": [
+          "pumping assay",
+          "drug screen",
+          "RNAi"
+        ]
+      }
+    },
+    "nerve": {
+      "anatomy": {
+        "desc": "302-neuron neuropil encircling the pharynx. Fully mapped connectome (White 1986; revised 2019).",
+        "tags": [
+          "connectome",
+          "302 neurons",
+          "neuropil"
+        ]
+      },
+      "genetics": {
+        "desc": "unc-86/Brn3, ceh-10/Chx10 specify identities. ACh, GABA, glutamate, dopamine, 5-HT.",
+        "tags": [
+          "unc-86",
+          "ceh-10",
+          "GABA",
+          "dopamine"
+        ]
+      },
+      "experiment": {
+        "desc": "ChR2/Arch optogenetics. GCaMP calcium imaging in freely moving worms.",
+        "tags": [
+          "optogenetics",
+          "GCaMP",
+          "ablation"
+        ]
+      }
+    },
+    "gonad": {
+      "anatomy": {
+        "desc": "Two U-shaped arms. DTC caps mitotic stem cells; oocytes arrested in meiosis I.",
+        "tags": [
+          "DTC",
+          "stem cell",
+          "meiosis",
+          "germline"
+        ]
+      },
+      "genetics": {
+        "desc": "glp-1/Notch maintains stem pool. fog-2, tra-1/tra-2 sex determination.",
+        "tags": [
+          "glp-1",
+          "Notch",
+          "fog-2",
+          "tra-1"
+        ]
+      },
+      "experiment": {
+        "desc": "Primary transgenesis: gonadal microinjection. CRISPR HDR >5% efficiency.",
+        "tags": [
+          "microinjection",
+          "CRISPR",
+          "RNAi feeding"
+        ]
+      }
+    },
+    "vulva": {
+      "anatomy": {
+        "desc": "22-cell structure from P5.p, P6.p, P7.p VPCs. EGF/RAS/MAPK induction at L3.",
+        "tags": [
+          "P6.p",
+          "22 cells",
+          "L3 larva"
+        ]
+      },
+      "genetics": {
+        "desc": "let-60/RAS, mpk-1/MAPK, lin-3/EGF cascade. lin-12/Notch lateral inhibition.",
+        "tags": [
+          "let-60",
+          "lin-3",
+          "lin-12",
+          "MAPK"
+        ]
+      },
+      "experiment": {
+        "desc": "Muv and Vul phenotypes are primary readouts for pathway screens.",
+        "tags": [
+          "Muv",
+          "Vul",
+          "cell fate",
+          "live imaging"
+        ]
+      }
+    },
+    "intestine": {
+      "anatomy": {
+        "desc": "20 cells in bilateral int rings. Single-cell-thick tube; brush border microvilli. Digestion, lipid/glycogen storage, vitellogenin synthesis, innate immunity.",
+        "tags": [
+          "20 cells",
+          "lipid store",
+          "immunity",
+          "ploidy"
+        ]
+      },
+      "genetics": {
+        "desc": "elt-2/GATA drives intestinal fate. daf-16/FOXO longevity. lgg-1 autophagosomes.",
+        "tags": [
+          "elt-2",
+          "daf-16",
+          "FOXO",
+          "lgg-1"
+        ]
+      },
+      "experiment": {
+        "desc": "Fat by BODIPY/Sudan Black. RNAi spreads systemically from here. LysoSensor for lysosomes.",
+        "tags": [
+          "Sudan Black",
+          "BODIPY",
+          "RNAi",
+          "longevity"
+        ]
+      }
+    }
+  },
+  "imagery": [
+    {
+      "id": "dic",
+      "label": "DIC lateral",
+      "type": "microscopy",
+      "modality": "DIC",
+      "mag": "40\u00d7",
+      "desc": "Differential interference contrast of adult hermaphrodite. Internal organs visible through transparent cuticle.",
+      "image": "procedural:dic",
+      "video": null,
+      "regions": [
+        {
+          "x": 0.27,
+          "y": 0.5,
+          "label": "Pharynx",
+          "color": "#378ADD",
+          "rx": 0.079,
+          "ry": 0.075,
+          "rot": 0
+        },
+        {
+          "x": 0.565,
+          "y": 0.5,
+          "label": "Intestine",
+          "color": "#D85A30",
+          "rx": 0.18,
+          "ry": 0.04,
+          "rot": 0
+        },
+        {
+          "x": 0.6,
+          "y": 0.535,
+          "label": "Vulva",
+          "color": "#BA7517",
+          "rx": 0.03,
+          "ry": 0.015,
+          "rot": 0
+        }
+      ]
+    },
+    {
+      "id": "gfp",
+      "label": "GFP reporter",
+      "type": "fluorescence",
+      "modality": "Confocal",
+      "mag": "20\u00d7",
+      "desc": "Intestinal elt-2::GFP reporter (green). Pharyngeal myo-2::mCherry (red). DIC overlay.",
+      "image": "procedural:gfp",
+      "video": null,
+      "regions": [
+        {
+          "x": 0.565,
+          "y": 0.5,
+          "label": "elt-2::GFP",
+          "color": "#1D9E75",
+          "rx": 0.18,
+          "ry": 0.06,
+          "rot": 0
+        },
+        {
+          "x": 0.277,
+          "y": 0.5,
+          "label": "myo-2::mCherry",
+          "color": "#D85A30",
+          "rx": 0.09,
+          "ry": 0.06,
+          "rot": 0
+        }
+      ]
+    },
+    {
+      "id": "bodipy",
+      "label": "BODIPY lipids",
+      "type": "fluorescence",
+      "modality": "Widefield",
+      "mag": "60\u00d7",
+      "desc": "BODIPY C12 fatty acid incorporation marks lipid droplets in intestinal cells. Nuclear DAPI counterstain.",
+      "image": "procedural:bodipy",
+      "video": null,
+      "regions": [
+        {
+          "x": 0.5,
+          "y": 0.45,
+          "label": "Lipid droplets",
+          "color": "#BA7517",
+          "rx": 0.12,
+          "ry": 0.08,
+          "rot": 0
+        },
+        {
+          "x": 0.4,
+          "y": 0.35,
+          "label": "Nuclei (DAPI)",
+          "color": "#7F77DD",
+          "rx": 0.06,
+          "ry": 0.06,
+          "rot": 0
+        }
+      ]
+    },
+    {
+      "id": "em",
+      "label": "TEM cross-section",
+      "type": "electron",
+      "modality": "TEM",
+      "mag": "8,000\u00d7",
+      "desc": "Transmission electron micrograph of intestinal cross-section. Microvilli brush border and mitochondria visible.",
+      "image": "procedural:em",
+      "video": null,
+      "regions": [
+        {
+          "x": 0.565,
+          "y": 0.5,
+          "label": "Microvilli",
+          "color": "#E8A830",
+          "rx": 0.1,
+          "ry": 0.025,
+          "rot": 0
+        },
+        {
+          "x": 0.35,
+          "y": 0.6,
+          "label": "Mitochondria",
+          "color": "#1D9E75",
+          "rx": 0.04,
+          "ry": 0.035,
+          "rot": 0
+        }
+      ]
+    }
+  ],
+  "lifecycle": [
+    {
+      "id": "emb",
+      "name": "Embryonic",
+      "desc": "Cell divisions create 302 neurons. 380 minutes of development. Pharynx and basic organs form.",
+      "duration": "0-6 hrs",
+      "tags": [
+        "Cell division",
+        "Neurogenesis"
+      ],
+      "color": "#7F77DD"
+    },
+    {
+      "id": "l1",
+      "name": "Larval Stage 1 (L1)",
+      "desc": "Growth by cell division. First feeding begins. Intestinal system becomes active with ~35 cells.",
+      "duration": "12 hrs",
+      "tags": [
+        "Growth",
+        "Feeding"
+      ],
+      "color": "#378ADD"
+    },
+    {
+      "id": "l2",
+      "name": "Larval Stage 2 (L2)",
+      "desc": "Continued growth. Gonad begins development. Nerve ring connections established.",
+      "duration": "24 hrs",
+      "tags": [
+        "Development"
+      ],
+      "color": "#1D9E75"
+    },
+    {
+      "id": "l3",
+      "name": "Larval Stage 3 (L3)",
+      "desc": "Sexual organs develop. Vulva forms (6 cells). ~1000 oocytes begin meiosis.",
+      "duration": "36 hrs",
+      "tags": [
+        "Sexual differentiation"
+      ],
+      "color": "#BA7517"
+    },
+    {
+      "id": "adult",
+      "name": "Adult Stage",
+      "desc": "Sexual maturity reached. Self-fertilization begins. ~300 progeny per animal. Peak egg production.",
+      "duration": "2-4 days",
+      "tags": [
+        "Reproduction"
+      ],
+      "color": "#D85A30"
+    },
+    {
+      "id": "senesce",
+      "name": "Senescence",
+      "desc": "Reproduction declines. Lipids accumulate. Aging begins. Lifespan ~20 days.",
+      "duration": "4+ days",
+      "tags": [
+        "Aging"
+      ],
+      "color": "#8B4513"
+    }
+  ],
+  "workflows": [
+    {
+      "id": "imaging",
+      "name": "Live Imaging Experiment",
+      "desc": "Prepare worms for fluorescent microscopy",
+      "color": "#378ADD",
+      "steps": [
+        {
+          "id": "s1",
+          "title": "Culture Prep",
+          "desc": "Grow L4 larvae on NGM plates at 20\u00b0C for 24 hrs",
+          "duration": "24 hrs",
+          "viz": "culture"
+        },
+        {
+          "id": "s2",
+          "title": "Mount Specimen",
+          "desc": "Transfer worm to agarose pad with anesthetic (0.1% tricaine)",
+          "duration": "5 min",
+          "viz": "mount"
+        },
+        {
+          "id": "s3",
+          "title": "Confocal Microscopy",
+          "desc": "Capture GFP/RFP signals with 63x oil objective, 488nm + 561nm lasers",
+          "duration": "30 min",
+          "viz": "scope"
+        },
+        {
+          "id": "s4",
+          "title": "Image Analysis",
+          "desc": "Quantify fluorescence intensity and distribution with ImageJ",
+          "duration": "2 hrs",
+          "viz": "analysis"
+        }
+      ]
+    },
+    {
+      "id": "mutagenesis",
+      "name": "Forward Genetics Screen",
+      "desc": "Identify genes controlling pharynx development",
+      "color": "#D85A30",
+      "steps": [
+        {
+          "id": "s1",
+          "title": "EMS Mutagenesis",
+          "desc": "Treat P0 males with 0.5M EMS for 4 hours",
+          "duration": "5 hrs",
+          "viz": "mutagen"
+        },
+        {
+          "id": "s2",
+          "title": "F1 Cross",
+          "desc": "Cross mutagenized males to wild-type females",
+          "duration": "24 hrs",
+          "viz": "cross"
+        },
+        {
+          "id": "s3",
+          "title": "F2 Screening",
+          "desc": "Score F2 progeny for pharynx/feeding defects",
+          "duration": "1 week",
+          "viz": "screen"
+        },
+        {
+          "id": "s4",
+          "title": "Mapping & Sequencing",
+          "desc": "Map mutations by 3-point cross and sequence candidate genes",
+          "duration": "2-4 weeks",
+          "viz": "map"
+        }
+      ]
+    }
+  ]
+}
